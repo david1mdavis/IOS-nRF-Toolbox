@@ -41,6 +41,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
     //MARK: - Delegate Properties
     var delegate : NORBluetoothManagerDelegate?
     var logger   : NORLogger?
+    var imagedata :NSMutableData?
     
     //MARK: - Class Properties
     fileprivate let MTU = 20

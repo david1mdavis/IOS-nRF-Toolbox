@@ -22,6 +22,7 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
     var logger              : NORLogViewController?
     var editMode            : Bool?
 
+    @IBOutlet weak var camImage: UIImageView!
     //MARK: - View Actions
     @IBAction func connectionButtonTapped(_ sender: AnyObject) {
         bluetoothManager?.cancelPeripheralConnection()
