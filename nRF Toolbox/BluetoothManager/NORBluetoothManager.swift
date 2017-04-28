@@ -41,7 +41,8 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
     //MARK: - Delegate Properties
     var delegate : NORBluetoothManagerDelegate?
     var logger   : NORLogger?
-    var imagedata :NSMutableData?
+    var cameradata :NSMutableData?
+    var imageByteCount : Int
     
     //MARK: - Class Properties
     fileprivate let MTU = 20
@@ -60,6 +61,9 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
     
     required init(withManager aManager : CBCentralManager) {
         centralManager = aManager
+        imageByteCount = 0;
+       cameradata  = NSMutableData()
+     //   self.imagedata?.init
         UARTServiceUUID          = CBUUID(string: NORServiceIdentifiers.uartServiceUUIDString)
         UARTTXCharacteristicUUID = CBUUID(string: NORServiceIdentifiers.uartTXCharacteristicUUIDString)
         UARTRXCharacteristicUUID = CBUUID(string: NORServiceIdentifiers.uartRXCharacteristicUUIDString)
@@ -256,7 +260,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         } else {
             log(withLevel: .infoLogLevel, andMessage: "Connected to device")
         }
-        
+        imageByteCount = 0;
         connected = true
         bluetoothPeripheral = peripheral
         bluetoothPeripheral!.delegate = self
@@ -405,12 +409,12 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
             if utf8Bytes[len - 1] == 0 {
                 len -= 1 // if the string is null terminated, don't pass null terminator into NSMutableString constructor
             }
-            
-            log(withLevel: .infoLogLevel, andMessage: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
+            cameradata?.append(utf8Bytes, length: len)
+           // log(withLevel: .infoLogLevel, andMessage: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
             if let validUTF8String = String(utf8String: utf8Bytes) {//  NSMutableString(bytes: utf8Bytes, length: len, encoding: String.Encoding.utf8.rawValue) {
-                log(withLevel: .appLogLevel, andMessage: "\"\(validUTF8String)\" received")
+                log(withLevel: .minLogLevel, andMessage: "\"\(validUTF8String)\" ")
             } else {
-                log(withLevel: .appLogLevel, andMessage: "\"0x\(bytesReceived.hexString)\" received")
+                log(withLevel: .minLogLevel, andMessage: "\"0x\(bytesReceived.hexString)\" ")
             }
         }
     }

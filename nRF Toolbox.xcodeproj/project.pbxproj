@@ -83,6 +83,8 @@
 		52D9BC9E1DD0CB760030E824 /* NORData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9BC9D1DD0CB760030E824 /* NORData.swift */; };
 		7E1B422918A8DF4D006BA1BC /* high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7E1B422818A8DF4D006BA1BC /* high.mp3 */; };
 		9989D1FF5018421BE4160C50 /* Pods_nRF_Toolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D84A6CFE99FD917A7222B7 /* Pods_nRF_Toolbox.framework */; };
+		ED5D62621EB2B9D600ED5769 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5D62611EB2B9D600ED5769 /* Pixel.swift */; };
+		ED5D62631EB2B9D600ED5769 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5D62611EB2B9D600ED5769 /* Pixel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +194,7 @@
 		7E1B422818A8DF4D006BA1BC /* high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = high.mp3; sourceTree = "<group>"; };
 		7E6ED10A196ED482008010B6 /* firmwares */ = {isa = PBXFileReference; lastKnownFileType = folder; path = firmwares; sourceTree = "<group>"; };
 		89CF4D2BA242FBAD9F6C46E9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED5D62611EB2B9D600ED5769 /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -565,6 +568,7 @@
 				3000B2101CE317D900F64CEE /* NORUARTRevealViewController.swift */,
 				3000B2121CE3195E00F64CEE /* NOREditPopupViewController.swift */,
 				3000B2141CE32A9200F64CEE /* NORUARTViewController.swift */,
+				ED5D62611EB2B9D600ED5769 /* Pixel.swift */,
 			);
 			path = UART;
 			sourceTree = "<group>";
@@ -741,7 +745,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -773,6 +777,7 @@
 				306ECD621CE61A3600E48BBD /* AppDelegate.swift in Sources */,
 				3001EBB71D1BE1FB008C5C37 /* NORBGMDetailsViewController.swift in Sources */,
 				304D59011CE352B300148271 /* NORLogItemTableViewCell.swift in Sources */,
+				ED5D62621EB2B9D600ED5769 /* Pixel.swift in Sources */,
 				3001EBC51D1C153C008C5C37 /* NORCGMDetailsViewController.swift in Sources */,
 				3080C4711CE06D0E009C2D8C /* NORCSCViewController.swift in Sources */,
 				309F086E1E6ED44F00B7546A /* NORHKScannerDelegate.swift in Sources */,
@@ -811,6 +816,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED5D62631EB2B9D600ED5769 /* Pixel.swift in Sources */,
 				3001432F1CEDAD04008379DF /* NORCharacteristicReaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

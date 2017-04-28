@@ -4,4 +4,5 @@ target "nRF Toolbox" do
     pod 'EVReflection', '~> 4.5'
     pod 'SWRevealViewController', '~> 2.3'
     pod 'CorePlot', '~> 2.2'
+    pod 'Alamofire', '~> 4.4'
 end

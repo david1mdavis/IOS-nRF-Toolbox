@@ -7,6 +7,7 @@
 //
 
 enum NORLOGLevel {
+    case minLogLevel
     case debugLogLevel
     case verboseLogLevel
     case infoLogLevel

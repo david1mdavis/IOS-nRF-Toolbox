@@ -9,6 +9,36 @@
 import UIKit
 import CoreBluetooth
 
+
+extension UInt16 {
+    var red_565 : UInt8 {
+        get {
+            return UInt8(self & 0xf800) >> 11
+        }
+    //    set(newValue) {
+      //      self = UInt16(UInt16(self & 0xf800) | UInt16(newValue & 0xf800) << 11)
+        //}
+    }
+    
+    var green_565 : UInt8 {
+        get {
+            return UInt8(self & 0x7e0) >> 6
+        }
+    //     set(newValue) {
+      //      self = UInt16(UInt16(self & 0x7e0) | UInt16((newValue & 0x7e0) << 6))
+       // }
+    }
+    
+    var blue_565 : UInt8 {
+        get {
+            return UInt8(self & 0x1F)
+        }
+        set(newValue) {
+           self = UInt16(UInt16(self & 0x1F) | UInt16((newValue & 0x1F) ))
+        }
+    }
+}
+
 class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORScannerDelegate, UIPopoverPresentationControllerDelegate, ButtonConfigureDelegate {
     
     //MARK: - View Properties
@@ -17,22 +47,65 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
     var buttonsCommands     : NSMutableArray?
     var buttonsHiddenStatus : NSMutableArray?
     var buttonsImageNames   : NSMutableArray?
+    var imagaArray           : NSMutableArray?
     var buttonIcons         : NSArray?
     var selectedButton      : UIButton?
     var logger              : NORLogViewController?
     var editMode            : Bool?
-
     @IBOutlet weak var camImage: UIImageView!
+    func createImage(){
+        
+    }
+    
     //MARK: - View Actions
     @IBAction func connectionButtonTapped(_ sender: AnyObject) {
         bluetoothManager?.cancelPeripheralConnection()
     }
     @IBAction func editButtonTapped(_ sender: AnyObject) {
-        let currentEditMode = editMode!
-        setEditMode(mode: !currentEditMode)
+        
+        var value_red : UInt8?
+        var value_green : UInt8?
+        var value_blue : UInt8?
+        var value16     : UInt16?
+        let data = bluetoothManager?.cameradata  //  NSData(/* ... */)
+        
+        // the number of elements:
+        let count = (data?.length)! / MemoryLayout<UInt16>.size
+        
+        // create array of appropriate length:
+        var array16 = [UInt16](repeating: 0, count: count)
+        var array8 = [UInt8](repeating: 0, count: count/2+count)
+        
+        // copy bytes into array
+        data?.getBytes(&array16, length:count * MemoryLayout<UInt16>.size)
+        for value16 in array16 {
+            value_red = value16.red_565
+            value_blue = value16.blue_565
+            value_red = value16.red_565
+            imagaArray?.add(value_red)
+            imagaArray?.add(value_green)
+            imagaArray?.add(value_blue as Any)
+            
+            
+        }
+        
+        
+        
+        
+        
+        //setEditMode(mode: !currentEditMode)
     }
     @IBAction func showLogButtonTapped(_ sender: AnyObject) {
+        
+        DispatchQueue.main.async {
+            //TODO: this is a bad fix to get things done, do not release!
+            if self.logger?.displayLogTextTable != nil {
+                self.logger?.displayLogTextTable!.reloadData()
+          //      self.logger?.crollDisplayViewDown()
+            }
+        }
         self.revealViewController().revealToggle(animated: true)
+        
     }
     @IBAction func buttonTapped(_ sender: AnyObject){
         if editMode == true
@@ -57,6 +130,7 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
     //MARK: - UIViewControllerDelegate
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+     //   imagaData = NSMutableData()
         buttonIcons = ["Stop","Play","Pause","FastForward","Rewind","End","Start","Shuffle","Record","Number_1",
         "Number_2","Number_3","Number_4","Number_5","Number_6","Number_7","Number_8","Number_9",]
     }

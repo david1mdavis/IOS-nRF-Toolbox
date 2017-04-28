@@ -26,6 +26,19 @@ class NORLogViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         super.init(coder: aDecoder)
     }
     
+   /* override func scrollViewDid
+    {
+    DispatchQueue.main.async {
+    //TODO: this is a bad fix to get things done, do not release!
+    if self.displayLogTextTable != nil {
+    self.displayLogTextTable!.reloadData()
+    self.scrollDisplayViewDown()
+    }
+    }
+
+    
+    }
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         displayLogTextTable.delegate = self
@@ -102,12 +115,13 @@ class NORLogViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         item.timestamp = getCurrentTime()
         logItems.add(item)
         
-        DispatchQueue.main.async {
+     /*   DispatchQueue.main.async {
             //TODO: this is a bad fix to get things done, do not release!
             if self.displayLogTextTable != nil {
                 self.displayLogTextTable!.reloadData()
                 self.scrollDisplayViewDown()
             }
         }
+ */
     }
 }
