@@ -44,6 +44,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
     var cameradata :NSMutableData?
     var imageByteCount : Int
     
+    
     //MARK: - Class Properties
     fileprivate let MTU = 20
     fileprivate let UARTServiceUUID             : CBUUID

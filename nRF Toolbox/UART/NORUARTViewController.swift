@@ -39,6 +39,7 @@ extension UInt16 {
     }
 }
 
+
 class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORScannerDelegate, UIPopoverPresentationControllerDelegate, ButtonConfigureDelegate {
     
     //MARK: - View Properties
@@ -52,6 +53,7 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
     var selectedButton      : UIButton?
     var logger              : NORLogViewController?
     var editMode            : Bool?
+    var pixels: RGBAImage?
     @IBOutlet weak var camImage: UIImageView!
     func createImage(){
         
@@ -129,12 +131,22 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
     
     //MARK: - UIViewControllerDelegate
     required init?(coder aDecoder: NSCoder) {
+       
+        
         super.init(coder: aDecoder)
-     //   imagaData = NSMutableData()
+       //   imagaData = NSMutableData()
         buttonIcons = ["Stop","Play","Pause","FastForward","Rewind","End","Start","Shuffle","Record","Number_1",
         "Number_2","Number_3","Number_4","Number_5","Number_6","Number_7","Number_8","Number_9",]
+    // var  pix = self.pixels?.pixels[0]
+      //  NSLog("%d",pix?.R ?? -1)
     }
-    
+      var  count : Int = 0
+    func updateTime(){
+
+        NSLog("%d",count)
+        count += 1
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Rotate the vertical label
@@ -150,6 +162,13 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
             self.view.addGestureRecognizer((revealViewController?.panGestureRecognizer())!)
             logger = revealViewController?.rearViewController as? NORLogViewController
         }
+        pixels = RGBAImage(image:(camImage?.image)!)!
+        
+        Timer.scheduledTimer(timeInterval: 10,
+                             target: self,
+                             selector: #selector(self.updateTime),
+                             userInfo: nil,
+                             repeats: true)
     }
     
     //MARK: - Segue methods
