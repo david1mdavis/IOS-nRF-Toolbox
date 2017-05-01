@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,8 +29,8 @@
                                     <constraint firstAttribute="height" constant="14" id="fGa-BJ-u0E"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nordic_logo" translatesAutoresizingMaskIntoConstraints="NO" id="tzl-Xm-8rS">
-                                <rect key="frame" x="69" y="78" width="182" height="242"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="colorb.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="tzl-Xm-8rS">
+                                <rect key="frame" x="-160" y="-41" width="640" height="480"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="750" constant="182" id="3P6-NS-sak"/>
                                     <constraint firstAttribute="height" priority="750" constant="242" id="VZX-R1-3bz"/>
@@ -67,6 +67,6 @@
     </scenes>
     <resources>
         <image name="BackgroundTitle" width="120" height="11"/>
-        <image name="nordic_logo" width="181" height="241"/>
+        <image name="colorb.JPG" width="640" height="480"/>
     </resources>
 </document>

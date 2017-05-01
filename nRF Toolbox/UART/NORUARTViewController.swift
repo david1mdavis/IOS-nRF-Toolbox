@@ -13,7 +13,7 @@ import CoreBluetooth
 extension UInt16 {
     var red_565 : UInt8 {
         get {
-            return UInt8(self & 0xf800) >> 11
+            return UInt8((self & 0xf800) >> 11)
         }
     //    set(newValue) {
       //      self = UInt16(UInt16(self & 0xf800) | UInt16(newValue & 0xf800) << 11)
@@ -22,7 +22,7 @@ extension UInt16 {
     
     var green_565 : UInt8 {
         get {
-            return UInt8(self & 0x7e0) >> 6
+            return UInt8((self & 0x7e0) >> 6)
         }
     //     set(newValue) {
       //      self = UInt16(UInt16(self & 0x7e0) | UInt16((newValue & 0x7e0) << 6))
@@ -63,35 +63,13 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
     @IBAction func connectionButtonTapped(_ sender: AnyObject) {
         bluetoothManager?.cancelPeripheralConnection()
     }
+    var dataReadCount = 0
     @IBAction func editButtonTapped(_ sender: AnyObject) {
         
         var value_red : UInt8?
         var value_green : UInt8?
         var value_blue : UInt8?
         var value16     : UInt16?
-        let data = bluetoothManager?.cameradata  //  NSData(/* ... */)
-        
-        // the number of elements:
-        let count = (data?.length)! / MemoryLayout<UInt16>.size
-        
-        // create array of appropriate length:
-        var array16 = [UInt16](repeating: 0, count: count)
-        var array8 = [UInt8](repeating: 0, count: count/2+count)
-        
-        // copy bytes into array
-        data?.getBytes(&array16, length:count * MemoryLayout<UInt16>.size)
-        for value16 in array16 {
-            value_red = value16.red_565
-            value_blue = value16.blue_565
-            value_red = value16.red_565
-            imagaArray?.add(value_red)
-            imagaArray?.add(value_green)
-            imagaArray?.add(value_blue as Any)
-            
-            
-        }
-        
-        
         
         
         
@@ -140,11 +118,49 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
     // var  pix = self.pixels?.pixels[0]
       //  NSLog("%d",pix?.R ?? -1)
     }
-      var  count : Int = 0
+     // var  count : Int = 0
     func updateTime(){
+        let data = bluetoothManager?.cameradata  //  NSData(/* ... */)
+        // the number of elements:
+        let count = (data?.length)! // MemoryLayout<UInt16>.size
+        
+        // create array of appropriate length:
+        var array16 = [UInt16](repeating: 0xffff, count: count/2)
+        // var array8 = [UInt8](repeating: 0, count: count/2+count)
+        
+        // copy bytes into array
+        data?.getBytes(&array16, length:count/2 * MemoryLayout<UInt16>.size)
+        bluetoothManager?.cameradata = NSMutableData()
+        
+        var pixel = Pixel(value: 0)
+        let num_255 :UInt16 = 255
+        let num_31  :UInt16 = 31
+        let num_63  :UInt16 = 63
+        for value16 in array16 {
+            
+            pixel.R = UInt8(UInt16(value16.red_565) * num_255 / num_31 )
+            pixel.B = UInt8(UInt16(value16.blue_565) * num_255 / num_31)
+            pixel.G = UInt8(UInt16(value16.green_565) *   num_255 / num_63)
+            pixel.A = 254
+            let s =  camImage.image?.size
+            let y = dataReadCount / Int((s?.width)!)
+            let x = dataReadCount % Int((s?.width)!)
+            pixels?.pixel(x: x, y, pixel)
+            dataReadCount += 1
+            //  NSLog("x=%d,y=%dR=%d,G=%d,B=%d",x,y,pixel.R,pixel.G,pixel.B)
+            
+            
+        }
+        
+        DispatchQueue.main.async {
+            self.camImage.image = self.pixels?.toUIImage()
+        }
+        
+        
+        
 
         NSLog("%d",count)
-        count += 1
+      //  count += 1
         
     }
     override func viewDidLoad() {

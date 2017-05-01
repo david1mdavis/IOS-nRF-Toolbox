@@ -85,6 +85,7 @@
 		9989D1FF5018421BE4160C50 /* Pods_nRF_Toolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D84A6CFE99FD917A7222B7 /* Pods_nRF_Toolbox.framework */; };
 		ED5D62621EB2B9D600ED5769 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5D62611EB2B9D600ED5769 /* Pixel.swift */; };
 		ED5D62631EB2B9D600ED5769 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5D62611EB2B9D600ED5769 /* Pixel.swift */; };
+		EDAA01231EB6692D00157206 /* colorb.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EDAA01221EB6692D00157206 /* colorb.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +196,7 @@
 		7E6ED10A196ED482008010B6 /* firmwares */ = {isa = PBXFileReference; lastKnownFileType = folder; path = firmwares; sourceTree = "<group>"; };
 		89CF4D2BA242FBAD9F6C46E9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED5D62611EB2B9D600ED5769 /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
+		EDAA01221EB6692D00157206 /* colorb.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = colorb.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +355,7 @@
 				304299361CE6154100E1D2AB /* BaseViewController */,
 				306ECD611CE61A3600E48BBD /* AppDelegate.swift */,
 				5217F3FD1859EE0000F2D5BB /* Images.xcassets */,
+				EDAA01221EB6692D00157206 /* colorb.JPG */,
 				5217F3EC1859EE0000F2D5BB /* Supporting Files */,
 			);
 			path = "nRF Toolbox";
@@ -684,6 +687,7 @@
 				7E1B422918A8DF4D006BA1BC /* high.mp3 in Resources */,
 				52BDCBC61C47C2C300E2680F /* Launch Screen.storyboard in Resources */,
 				5211EFAE18856430007CC40D /* icon-dfu-64.png in Resources */,
+				EDAA01231EB6692D00157206 /* colorb.JPG in Resources */,
 				5217F3F01859EE0000F2D5BB /* InfoPlist.strings in Resources */,
 				5211EFB118856430007CC40D /* icon-hex@2x.png in Resources */,
 				5217F3F91859EE0000F2D5BB /* Main.storyboard in Resources */,
