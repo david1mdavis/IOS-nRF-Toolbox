@@ -8,6 +8,37 @@
 
 import UIKit
 import CoreBluetooth
+extension UIImage {
+    
+    /// Returns a image that fills in newSize
+    func resizedImage(newSize: CGSize) -> UIImage {
+        // Guard newSize is different
+        guard self.size != newSize else { return self }
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+        self.draw(in: CGRect(x: 0, y:0, width: newSize.width, height: newSize.height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    /// Returns a resized image that fits in rectSize, keeping it's aspect ratio
+    /// Note that the new image size is not rectSize, but within it.
+    func resizedImageWithinRect(rectSize: CGSize) -> UIImage {
+        let widthFactor = size.width / rectSize.width
+        let heightFactor = size.height / rectSize.height
+        
+        var resizeFactor = widthFactor
+        if size.height > size.width {
+            resizeFactor = heightFactor
+        }
+        
+        let newSize = CGSize(width: size.width/resizeFactor, height: size.height/resizeFactor)
+        let resized = resizedImage(newSize:newSize)
+        return resized
+    }
+    
+}
 
 
 extension UInt16 {
@@ -138,16 +169,33 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
         let num_63  :UInt16 = 63
         for value16 in array16 {
             
+            
+            
+        //    printf("%d,%d,%d ",(t->red * 527 + 23 ) >> 6,(t->green  * 259 + 33 ) >> 6,(t->blue * 527 + 23 ) >> 6);
+            
+            pixel.R = UInt8((UInt16(value16.red_565)   * 527 + 23) >> 6)
+            pixel.B = UInt8((UInt16(value16.blue_565)  * 527 + 23) >> 6)
+            pixel.G = UInt8((UInt16(value16.green_565) * 259 + 33) >> 6)
+            
+            
+            /*
             pixel.R = UInt8(UInt16(value16.red_565) * num_255 / num_31 )
             pixel.B = UInt8(UInt16(value16.blue_565) * num_255 / num_31)
             pixel.G = UInt8(UInt16(value16.green_565) *   num_255 / num_63)
+            */
             pixel.A = 254
+            
+            
             let s =  camImage.image?.size
-            let y = dataReadCount / Int((s?.width)!)
-            let x = dataReadCount % Int((s?.width)!)
+         //    let y = dataReadCount / Int((160))
+           // let x = dataReadCount % Int((160))
+              let y = dataReadCount / Int((s?.width)!)
+              let x = dataReadCount % Int((s?.width)!)
+            
+            
             pixels?.pixel(x: x, y, pixel)
             dataReadCount += 1
-            //  NSLog("x=%d,y=%dR=%d,G=%d,B=%d",x,y,pixel.R,pixel.G,pixel.B)
+             NSLog("x=%d,y=%dR=%d,G=%d,B=%d",x,y,pixel.R,pixel.G,pixel.B)
             
             
         }
@@ -163,6 +211,7 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
       //  count += 1
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Rotate the vertical label
@@ -178,6 +227,8 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
             self.view.addGestureRecognizer((revealViewController?.panGestureRecognizer())!)
             logger = revealViewController?.rearViewController as? NORLogViewController
         }
+     
+        camImage?.image = camImage?.image?.resizedImageWithinRect(rectSize: CGSize(width: 160, height: 120))
         pixels = RGBAImage(image:(camImage?.image)!)!
         
         Timer.scheduledTimer(timeInterval: 10,
