@@ -167,23 +167,35 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
         let num_255 :UInt16 = 255
         let num_31  :UInt16 = 31
         let num_63  :UInt16 = 63
+        var d1 : UInt16
+        var d2 : UInt16
         for value16 in array16 {
             
             
             
         //    printf("%d,%d,%d ",(t->red * 527 + 23 ) >> 6,(t->green  * 259 + 33 ) >> 6,(t->blue * 527 + 23 ) >> 6);
             
-            pixel.R = UInt8((UInt16(value16.red_565)   * 527 + 23) >> 6)
-            pixel.B = UInt8((UInt16(value16.blue_565)  * 527 + 23) >> 6)
-            pixel.G = UInt8((UInt16(value16.green_565) * 259 + 33) >> 6)
+          //  value16
+            d1 = value16 & 0xFF00
+            d2 = value16 & 0x00FF
+            d1 = d1 >> 8;
+
+            
+           pixel.B = UInt8((d1 & 0x1F) << 3);
+           pixel.G = UInt8((((d1 & 0xE0) >> 3) | ((d2 & 0x07) << 5)));
+           pixel.R = UInt8((d2 & 0xF8));
+            
+           // pixel.R = UInt8((UInt16(value16.red_565)   * 527 + 23) >> 6)
+           // pixel.B = UInt8((UInt16(value16.blue_565)  * 527 + 23) >> 6)
+            //pixel.G = UInt8((UInt16(value16.green_565) * 259 + 33) >> 6)
             
             
-            /*
-            pixel.R = UInt8(UInt16(value16.red_565) * num_255 / num_31 )
-            pixel.B = UInt8(UInt16(value16.blue_565) * num_255 / num_31)
-            pixel.G = UInt8(UInt16(value16.green_565) *   num_255 / num_63)
-            */
-            pixel.A = 254
+            
+          //  pixel.R = UInt8(UInt16(value16.red_565) * num_255 / num_31 )
+           // pixel.B = UInt8(UInt16(value16.blue_565) * num_255 / num_31)
+           // pixel.G = UInt8(UInt16(value16.green_565) *   num_255 / num_63)
+            
+            pixel.A = 255
             
             
             let s =  camImage.image?.size
@@ -195,7 +207,7 @@ class NORUARTViewController: UIViewController, NORBluetoothManagerDelegate, NORS
             
             pixels?.pixel(x: x, y, pixel)
             dataReadCount += 1
-             NSLog("x=%d,y=%dR=%d,G=%d,B=%d",x,y,pixel.R,pixel.G,pixel.B)
+      //       NSLog("x=%d,y=%dR=%d,G=%d,B=%d",x,y,pixel.R,pixel.G,pixel.B)
             
             
         }

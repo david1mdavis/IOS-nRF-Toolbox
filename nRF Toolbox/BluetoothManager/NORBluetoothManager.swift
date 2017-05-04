@@ -412,11 +412,12 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
             }
             cameradata?.append(utf8Bytes, length: len)
            // log(withLevel: .infoLogLevel, andMessage: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
-            if let validUTF8String = String(utf8String: utf8Bytes) {//  NSMutableString(bytes: utf8Bytes, length: len, encoding: String.Encoding.utf8.rawValue) {
+      /*      if let validUTF8String = String(utf8String: utf8Bytes) {//  NSMutableString(bytes: utf8Bytes, length: len, encoding: String.Encoding.utf8.rawValue) {
                 log(withLevel: .minLogLevel, andMessage: "\"\(validUTF8String)\" ")
             } else {
                 log(withLevel: .minLogLevel, andMessage: "\"0x\(bytesReceived.hexString)\" ")
             }
-        }
+ */       }
+ 
     }
 }
